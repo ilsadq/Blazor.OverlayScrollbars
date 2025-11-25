@@ -1,6 +1,6 @@
-import {ClickScrollPlugin, OverlayScrollbars, ScrollbarsHidingPlugin} from "overlayscrollbars";
+import {ClickScrollPlugin, OverlayScrollbars, ScrollbarsHidingPlugin, SizeObserverPlugin} from "overlayscrollbars";
 
-OverlayScrollbars.plugin([ClickScrollPlugin, ScrollbarsHidingPlugin]);
+OverlayScrollbars.plugin([ClickScrollPlugin, ScrollbarsHidingPlugin, SizeObserverPlugin]);
 
 class OverlayScrollbarElement extends HTMLElement {
     constructor() {
@@ -16,7 +16,7 @@ class OverlayScrollbarElement extends HTMLElement {
             if (val === null) return defaultValue;
             return !(val === "false" || val === "0");
         };
-        
+
         this._osInstance = OverlayScrollbars(this, {
             paddingAbsolute: getBool("padding-absolute"),
             showNativeOverlaidScrollbars: getBool("native-overlaid"),
