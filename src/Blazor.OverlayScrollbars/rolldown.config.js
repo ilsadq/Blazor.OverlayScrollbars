@@ -6,6 +6,7 @@ export default defineConfig({
         file: "wwwroot/OverlayScrollbars.js",
         format: "iife",
         sourcemap: true,
+        minify: true,
     },
     treeshake: true,
     platform: "browser",

@@ -1,0 +1,193 @@
+@using System.ComponentModel
+
+<overlay-scrollbar
+    @attributes="AdditionalAttributes"
+    class="@Class"
+    padding-absolute="@PaddingAbsolute"
+    native-overlaid="@ShowNativeOverlaid"
+    overflow-x="@OverflowXString"
+    overflow-y="@OverflowYString"
+    theme="@ThemeString"
+    visibility="@VisibilityString"
+    auto-hide="@AutoHideString"
+    auto-hide-delay="@AutoHideDelay"
+    auto-hide-suspend="@AutoHideSuspend"
+    drag-scroll="@DragScroll"
+    click-scroll="@ClickScrollString"
+    pointers="@Pointers">
+    @ChildContent
+</overlay-scrollbar>
+
+@code {
+
+    /// <summary>
+    /// Child content of the scrollable area.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; } = null!;
+
+    /// <summary>
+    /// Additional CSS classes applied to the &lt;overlay-scrollbar&gt; element.
+    /// </summary>
+    [Parameter]
+    [DefaultValue(null)]
+    public string? Class { get; set; }
+
+    /// <summary>
+    /// Whether the padding should be absolute.
+    /// When true, scrollbars do not affect the content size calculation (like macOS native behavior).
+    /// </summary>
+    [Parameter]
+    [DefaultValue(false)]
+    public bool PaddingAbsolute { get; set; }
+
+    /// <summary>
+    /// Whether to show the native scrollbars. Has effect only if the native scrollbars are overlaid.
+    /// Works only on platforms that use overlay scrollbars (macOS, Windows 10+ with overlay enabled).
+    /// </summary>
+    [Parameter]
+    [DefaultValue(false)]
+    public bool ShowNativeOverlaid { get; set; }
+
+    /// <summary>
+    /// The scrollbar's theme. The theme value will be added as a class to all scrollbar elements.
+    /// Use <c>null</c> or <see cref="OverlayScrollbarTheme.None"/> to disable.
+    /// </summary>
+    [Parameter]
+    [DefaultValue(OverlayScrollbarTheme.Dark)]
+    public OverlayScrollbarTheme Theme { get; set; } = OverlayScrollbarTheme.Dark;
+
+    /// <summary>
+    /// The overflow behavior of the horizontal (X) axis.
+    /// </summary>
+    [Parameter]
+    [DefaultValue(OverflowBehavior.Scroll)]
+    public OverflowBehavior OverflowX { get; set; } = OverflowBehavior.Scroll;
+
+    /// <summary>
+    /// The overflow behavior of the vertical (Y) axis.
+    /// </summary>
+    [Parameter]
+    [DefaultValue(OverflowBehavior.Scroll)]
+    public OverflowBehavior OverflowY { get; set; } = OverflowBehavior.Scroll;
+
+    /// <summary>
+    /// The scrollbar's visibility behavior.
+    /// <list type="bullet">
+    /// <item><description><c>Auto</c> – visible only when needed</description></item>
+    /// <item><description><c>Visible</c> – always visible</description></item>
+    /// <item><description><c>Hidden</c> – always hidden</description></item>
+    /// </list>
+    /// </summary>
+    [Parameter]
+    [DefaultValue(ScrollbarVisibility.Auto)]
+    public ScrollbarVisibility Visibility { get; set; } = ScrollbarVisibility.Auto;
+
+    /// <summary>
+    /// The scrollbar's auto-hide behavior.
+    /// <list type="bullet">
+    /// <item><description><c>Never</c> – never hide automatically</description></item>
+    /// <item><description><c>Scroll</c> – hide after scrolling stops</description></item>
+    /// <item><description><c>Leave</c> – hide when pointer leaves the element</description></item>
+    /// <item><description><c>Move</c> – hide when pointer stops moving inside the element</description></item>
+    /// </list>
+    /// </summary>
+    [Parameter]
+    [DefaultValue(AutoHideBehavior.Never)]
+    public AutoHideBehavior AutoHide { get; set; } = AutoHideBehavior.Never;
+
+    /// <summary>
+    /// The scrollbar's auto-hide delay in milliseconds.
+    /// </summary>
+    [Parameter]
+    [DefaultValue(1300)]
+    public int AutoHideDelay { get; set; } = 1300;
+
+    /// <summary>
+    /// Whether the scrollbar's auto-hide behavior is suspended until the first scroll occurs.
+    /// </summary>
+    [Parameter]
+    [DefaultValue(false)]
+    public bool AutoHideSuspend { get; set; }
+
+    /// <summary>
+    /// Whether it is possible to drag the scrollbar handle to scroll the viewport.
+    /// </summary>
+    [Parameter]
+    [DefaultValue(true)]
+    public bool DragScroll { get; set; } = true;
+
+    /// <summary>
+    /// Whether it is possible to click the scrollbar track to scroll the viewport.
+    /// <list type="bullet.">
+    /// <item><description><c>Disabled</c> – no click-scroll</description></item>
+    /// <item><description><c>Normal</c> – smooth scroll to position</description></item>
+    /// <item><description><c>Instant</c> – instantly jump to position (like native Chrome behavior)</description></item>
+    /// </list>
+    /// </summary>
+    [Parameter]
+    [DefaultValue(ClickScrollBehavior.Instant)]
+    public ClickScrollBehavior ClickScroll { get; set; } = ClickScrollBehavior.Instant;
+
+    /// <summary>
+    /// An array of pointer types that shall be supported.
+    /// Example: "mouse,touch,pen"
+    /// </summary>
+    [Parameter]
+    [DefaultValue(null)]
+    public string? Pointers { get; set; }
+
+    /// <summary>
+    /// Captures any additional HTML attributes not covered by dedicated parameters.
+    /// </summary>
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string OverflowXString => OverflowX switch
+    {
+        OverflowBehavior.Hidden => "hidden",
+        OverflowBehavior.Visible => "visible",
+        OverflowBehavior.VisibleHidden => "visible-hidden",
+        OverflowBehavior.VisibleScroll => "visible-scroll",
+        _ => "scroll"
+    };
+
+    private string OverflowYString => OverflowY switch
+    {
+        OverflowBehavior.Hidden => "hidden",
+        OverflowBehavior.Visible => "visible",
+        OverflowBehavior.VisibleHidden => "visible-hidden",
+        OverflowBehavior.VisibleScroll => "visible-scroll",
+        _ => "scroll"
+    };
+
+    private string? ThemeString => Theme switch
+    {
+        OverlayScrollbarTheme.Dark => "os-theme-dark",
+        OverlayScrollbarTheme.Light => "os-theme-light",
+        _ => null
+    };
+
+    private string VisibilityString => Visibility switch
+    {
+        ScrollbarVisibility.Visible => "visible",
+        ScrollbarVisibility.Hidden => "hidden",
+        _ => "auto"
+    };
+
+    private string AutoHideString => AutoHide switch
+    {
+        AutoHideBehavior.Scroll => "scroll",
+        AutoHideBehavior.Leave => "leave",
+        AutoHideBehavior.Move => "move",
+        _ => "never"
+    };
+
+    private object ClickScrollString => ClickScroll switch
+    {
+        ClickScrollBehavior.Instant => "instant",
+        ClickScrollBehavior.Normal => true,
+        _ => false
+    };
+
+}
