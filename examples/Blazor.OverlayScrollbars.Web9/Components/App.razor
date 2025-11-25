@@ -11,11 +11,13 @@
     <ImportMap/>
     <link rel="icon" type="image/png" href="favicon.png"/>
     <HeadOutlet/>
+    <link rel="stylesheet" href="@Assets["_content/Blazor.OverlayScrollbars/OverlayScrollbars.min.css"]">
 </head>
 
-<body>
+<body data-overlayscrollbars-initialize>
 <Routes/>
 <script src="_framework/blazor.web.js"></script>
+<script src="@Assets["_content/Blazor.OverlayScrollbars/OverlayScrollbars.js"]"></script>
 </body>
 
 </html>
