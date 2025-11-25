@@ -17,7 +17,7 @@
         <Folder Include="wwwroot\"/>
     </ItemGroup>
 
-    <Target Name="RemoveMuPdfScripts" BeforeTargets="PrePack">
+    <Target Name="RemoveUnnecessaryFiles" BeforeTargets="PrePack">
         <ItemGroup>
             <Content Remove="OverlayScrollbars.js"/>
             <Content Remove="package.json"/>

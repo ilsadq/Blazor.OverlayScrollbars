@@ -5,6 +5,7 @@
 
 # dotenv files
 .env
+src/Blazor.OverlayScrollbars/wwwroot
 
 # User-specific files
 *.rsuser
