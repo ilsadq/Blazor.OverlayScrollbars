@@ -37,5 +37,11 @@
         <Exec Command="npm run build"/>
     </Target>
 
+    <Target Name="CopyOverlayScrollbars" AfterTargets="NpmInstall">
+        <Copy SourceFiles="node_modules/overlayscrollbars/styles/overlayscrollbars.min.css"
+              DestinationFiles="wwwroot/OverlayScrollbars.min.css"
+              SkipUnchangedFiles="true"/>
+    </Target>
+
     <Target Name="PrePack" DependsOnTargets="NpmRunBuild" BeforeTargets="BeforeBuild"/>
 </Project>

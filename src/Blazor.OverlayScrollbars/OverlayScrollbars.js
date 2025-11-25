@@ -1,10 +1,21 @@
-import { OverlayScrollbars } from "overlayscrollbars";
+import {
+    OverlayScrollbars,
+    ClickScrollPlugin,
+    ScrollbarsHidingPlugin
+} from 'overlayscrollbars';
 
-export class OverlayScrollbarElement extends HTMLElement {
-    _osInstance;
-    
+OverlayScrollbars.plugin([ClickScrollPlugin, ScrollbarsHidingPlugin]);
+
+class OverlayScrollbarElement extends HTMLElement {
+    constructor() {
+        super();
+        this.osInstance = null;
+    }
+
     connectedCallback() {
-        this._osInstance = OverlayScrollbars(this, {
+        if (OverlayScrollbars(this)) return;
+
+        this.osInstance = OverlayScrollbars(this, {
             paddingAbsolute: this.hasAttribute("padding-absolute"),
             showNativeOverlaidScrollbars: this.hasAttribute("native-overlaid"),
             overflow: {
@@ -16,14 +27,13 @@ export class OverlayScrollbarElement extends HTMLElement {
                 visibility: this.getAttribute("visibility") || "auto",
                 autoHide: this.getAttribute("auto-hide") || "never",
                 autoHideDelay: Number(this.getAttribute("auto-hide-delay")) || 1300,
+                clickScroll: this.hasAttribute("click-scroll"),
                 autoHideSuspend: this.hasAttribute("auto-hide-suspend"),
-                dragScroll: !this.hasAttribute("no-drag"),
-                clickScroll: this.hasAttribute("click-scroll") || false,
-                pointers: this.getAttribute("pointers")?.split(",") || null,
-            },
+                dragScroll: this.hasAttribute("drag"),
+            }
         });
     }
-    
+
     disconnectedCallback() {
         if (this.osInstance) {
             this.osInstance.destroy();
