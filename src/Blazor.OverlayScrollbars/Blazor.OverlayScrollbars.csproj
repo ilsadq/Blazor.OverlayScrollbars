@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -8,12 +7,13 @@
         <Authors>adequate</Authors>
         <Description>Blazor OverlayScrollbars — lightweight, zero-bullshit wrapper for the badass OverlayScrollbars JS library. Gives you beautiful, fully customizable scrollbars that actually work, with full Blazor Server &amp; WebAssembly support.</Description>
         <PackageProjectUrl>https://github.com/ilsadq/Blazor.OverlayScrollbars</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/ilsadq/Blazor.OverlayScrollbars/blob/main/LICENSE</PackageLicenseUrl>
+        <PackageLicenseExpression>GPL-3.0-only</PackageLicenseExpression>
         <PackageIcon>Logo.png</PackageIcon>
         <RepositoryUrl>https://github.com/ilsadq/Blazor.OverlayScrollbars</RepositoryUrl>
         <RepositoryType>github</RepositoryType>
         <PackageTags>blazor,overlayscrollbars,js</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <TargetFrameworks>net9.0;net10.0;net8.0</TargetFrameworks>
     </PropertyGroup>
     
     <ItemGroup>
@@ -21,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.22" />
     </ItemGroup>
 
     <ItemGroup>
@@ -30,7 +30,7 @@
 
     <ItemGroup>
         <None Include="../../README.md" Pack="true" PackagePath="/" />
-        
+        <None Include="../../LICENSE" Pack="true" PackagePath="/" />
         <None Include="..\..\Logo.png">
             <Pack>True</Pack>
             <PackagePath></PackagePath>
