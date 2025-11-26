@@ -3,8 +3,19 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>Blazor.OverlayScrollbars</Title>
+        <Authors>adequate</Authors>
+        <Description>Blazor OverlayScrollbars — lightweight, zero-bullshit wrapper for the badass OverlayScrollbars JS library. Gives you beautiful, fully customizable scrollbars that actually work, with full Blazor Server &amp; WebAssembly support.</Description>
+        <PackageProjectUrl>https://github.com/ilsadq/Blazor.OverlayScrollbars</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/ilsadq/Blazor.OverlayScrollbars/blob/main/LICENSE</PackageLicenseUrl>
+        <PackageIcon>Logo.png</PackageIcon>
+        <RepositoryUrl>https://github.com/ilsadq/Blazor.OverlayScrollbars</RepositoryUrl>
+        <RepositoryType>github</RepositoryType>
+        <PackageTags>blazor,overlayscrollbars,js</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
-
+    
     <ItemGroup>
         <SupportedPlatform Include="browser"/>
     </ItemGroup>
@@ -17,11 +28,22 @@
         <Folder Include="wwwroot\"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <None Include="../../README.md" Pack="true" PackagePath="/" />
+        
+        <None Include="..\..\Logo.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+            <Link>Logo.png</Link>
+        </None>
+    </ItemGroup>
+
     <Target Name="RemoveUnnecessaryFiles" BeforeTargets="PrePack">
         <ItemGroup>
             <Content Remove="OverlayScrollbars.js"/>
             <Content Remove="package.json"/>
             <Content Remove="package-lock.json"/>
+            <Content Remove="rolldown.config.js"/>
         </ItemGroup>
 
         <Message Importance="high" Text="Start remove npm dependencies"/>
