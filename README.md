@@ -1,3 +1,5 @@
+# BROKEN: Due to the server-side v-dom, the generated HTML code is removed and the scrollbar breaks.
+
 # Blazor.OverlayScrollbars
 
 A lightweight, fully-featured Blazor component wrapper for the excellent [OverlayScrollbars](https://github.com/KingSora/OverlayScrollbars) JavaScript library.
